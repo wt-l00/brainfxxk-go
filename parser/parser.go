@@ -2,37 +2,43 @@ package parser
 
 import "bytes"
 
-type program struct {
-	instructions []byte
+type Program struct {
+	code         string
+	Instructions []byte
 }
 
-func (p *program) parseProgram(code string) {
-	for i := 0; i < len(code); i++ {
-		switch code[i] {
+func New(input string) *Program {
+	p := &Program{code: input}
+	return p
+}
+
+func (p *Program) ParseProgram() {
+	for i := 0; i < len(p.code); i++ {
+		switch p.code[i] {
 		case '>':
-			p.instructions = append(p.instructions, '>')
+			p.Instructions = append(p.Instructions, '>')
 		case '<':
-			p.instructions = append(p.instructions, '<')
+			p.Instructions = append(p.Instructions, '<')
 		case '+':
-			p.instructions = append(p.instructions, '+')
+			p.Instructions = append(p.Instructions, '+')
 		case '-':
-			p.instructions = append(p.instructions, '-')
+			p.Instructions = append(p.Instructions, '-')
 		case '.':
-			p.instructions = append(p.instructions, '.')
+			p.Instructions = append(p.Instructions, '.')
 		case ',':
-			p.instructions = append(p.instructions, ',')
+			p.Instructions = append(p.Instructions, ',')
 		case '[':
-			p.instructions = append(p.instructions, '[')
+			p.Instructions = append(p.Instructions, '[')
 		case ']':
-			p.instructions = append(p.instructions, ']')
+			p.Instructions = append(p.Instructions, ']')
 		}
 	}
 }
 
-func (p *program) String() string {
+func (p *Program) String() string {
 	var out bytes.Buffer
 
-	for _, s := range p.instructions {
+	for _, s := range p.Instructions {
 		out.WriteString(string(s))
 	}
 
