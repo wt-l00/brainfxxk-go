@@ -1,15 +1,17 @@
 package interpreter
 
 import (
+	"bufio"
 	"bytes"
+	"os"
 )
 
 const (
-	memorySize int64 = 30000
+	memorySize int64 = 300000
 )
 
-func interpreterProgram(instructions []byte) string {
-	memory := make([]int64, memorySize)
+func InterpreterProgram(instructions []byte) string {
+	memory := make([]int, memorySize)
 	dataPtr := 0
 
 	var res bytes.Buffer
@@ -27,8 +29,15 @@ func interpreterProgram(instructions []byte) string {
 			memory[dataPtr]--
 		case '.':
 			res.WriteString(string(memory[dataPtr]))
-		//case ',':
-
+		case ',':
+			scanner := bufio.NewScanner(os.Stdin)
+			scanned := scanner.Scan()
+			if !scanned {
+				return "failed"
+			}
+			line := scanner.Text()
+			char := line[0]
+			memory[dataPtr] = int(char)
 		case '[':
 			bracketNesting := 1
 			if memory[dataPtr] == 0 {

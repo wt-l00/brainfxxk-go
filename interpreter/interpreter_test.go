@@ -18,8 +18,8 @@ func TestInterpreterProgram(t *testing.T) {
 		p := parser.New(program.input)
 		p.ParseProgram()
 
-		if interpreterProgram(p.Instructions) != program.expected {
-			t.Errorf("expected=%q, got=%q", program.expected, interpreterProgram(p.Instructions))
+		if InterpreterProgram(p.Instructions) != program.expected {
+			t.Errorf("expected=%q, got=%q", program.expected, InterpreterProgram(p.Instructions))
 		}
 	}
 }

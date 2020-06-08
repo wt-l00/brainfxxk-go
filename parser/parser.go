@@ -1,6 +1,8 @@
 package parser
 
-import "bytes"
+import (
+	"bytes"
+)
 
 type Program struct {
 	code         string
@@ -13,6 +15,7 @@ func New(input string) *Program {
 }
 
 func (p *Program) ParseProgram() {
+
 	for i := 0; i < len(p.code); i++ {
 		switch p.code[i] {
 		case '>':
